@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "862376170285",
+    "project_id": "tryflutter-6aa34",
+    "storage_bucket": "tryflutter-6aa34.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862376170285:android:a12442ab99a4f953b3b9a4",
+        "android_client_info": {
+          "package_name": "com.example.tryflutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_eLaQM7pujO8LoyeRFCVDohgCbfew4VA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
