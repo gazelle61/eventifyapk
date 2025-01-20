@@ -18,7 +18,7 @@ class _HomepageState extends State<EventView> {
   // text controller
   final TextEditingController textEditingController = TextEditingController();
 
-  // open a dialog vox to add an event
+  // open a dialog box to add an event
   void openNoteBox({String? docID}) {
     showDialog(
       context: context,
@@ -56,57 +56,86 @@ class _HomepageState extends State<EventView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("My Events")),
+      // Ubah background scaffold menjadi hitam
+      backgroundColor: Colors.black, // Menambahkan background hitam
+
+      body: Column(
+        children: [
+          // Ganti Header dengan Asset Image
+          Container(
+            width: double.infinity,
+            height: 237,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/header.png'), // Ganti dengan path gambar Anda
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          // Isi Body
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: databaseService.getEventsStream(),
+              builder: (context, snapshot) {
+                // if we have data, get all the docs
+                if (snapshot.hasData) {
+                  List eventsList = snapshot.data!.docs;
+
+                  // display as a list
+                  return ListView.builder(
+                    itemCount: eventsList.length,
+                    itemBuilder: (context, index) {
+                      // get each individual doc
+                      DocumentSnapshot document = eventsList[index];
+                      String docID = document.id;
+
+                      // get event from each doc
+                      Map<String, dynamic> data =
+                          document.data() as Map<String, dynamic>;
+                      String eventText = data['events'] ?? "events";
+
+                      // display as a list tile
+                      return ListTile(
+                        title: Text(
+                          eventText,
+                          style: TextStyle(color: Colors.white), // Warna teks putih agar kontras dengan background hitam
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // update button
+                            IconButton(
+                              onPressed: () => openNoteBox(docID: docID),
+                              icon: const Icon(Icons.settings, color: Colors.white), // Warna ikon putih
+                            ),
+
+                            // delete button
+                            IconButton(
+                              onPressed: () => databaseService.deleteEvent(docID),
+                              icon: const Icon(Icons.delete, color: Colors.white), // Warna ikon putih
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return const Center(
+                    child: Text("No events...", style: TextStyle(color: Colors.white)), // Warna teks putih
+                  );
+                }
+              },
+            ),
+          ),
+        ],
+      ),
+
+      // Floating Action Button
       floatingActionButton: FloatingActionButton(
         onPressed: () => openNoteBox(),
         child: const Icon(Icons.add),
-      ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: databaseService.getEventsStream(),
-        builder: (context, snapshot) {
-          // if we have data, get all the docs
-          if (snapshot.hasData) {
-            List eventsList = snapshot.data!.docs;
-
-            // display as a list
-            return ListView.builder(
-              itemCount: eventsList.length,
-              itemBuilder: (context, index) {
-                // get each individual doc
-                DocumentSnapshot document = eventsList[index];
-                String docID = document.id;
-
-                // get event from each doc
-                Map<String, dynamic> data =
-                    document.data() as Map<String, dynamic>;
-                String eventText = data['events'] ?? "events";
-
-                // display as a list tile
-                return ListTile(
-                  title: Text(eventText),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // update button
-                      IconButton(
-                        onPressed: () => openNoteBox(docID: docID),
-                        icon: const Icon(Icons.settings),
-                      ),
-
-                      // delete button
-                      IconButton(
-                        onPressed: () => databaseService.deleteEvent(docID),
-                        icon: const Icon(Icons.delete),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
-          } else {
-            return const Text("No events...");
-          }
-        },
+        backgroundColor: Colors.black, // Warna background FAB hitam
       ),
     );
   }
