@@ -14,11 +14,35 @@
       },
       "oauth_client": [
         {
+          "client_id": "862376170285-g6ck6i7vub2mbkvuknlo0rl6vjcdata2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tryflutter",
+            "certificate_hash": "a85c473c403acec851e46bc4eaf523c63e83f2b9"
+          }
+        },
+        {
           "client_id": "862376170285-jjtk61b22endvob5i79rbnircvjbp43o.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.tryflutter",
             "certificate_hash": "aed076891d803bed96479ada7a513603c9a09fb7"
+          }
+        },
+        {
+          "client_id": "862376170285-subnb1mu3ul5pnft0g02a930mcjfdqv3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tryflutter",
+            "certificate_hash": "a8916ee513f4920270838b6bbfe1655aaa8ff7ab"
+          }
+        },
+        {
+          "client_id": "862376170285-u6jq1msskniprm19cs9a5ln8t8bdm4kt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tryflutter",
+            "certificate_hash": "17cb20ba91debd0fcf06079ceff3ade35a8c25d1"
           }
         },
         {

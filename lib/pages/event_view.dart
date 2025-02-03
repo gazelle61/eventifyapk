@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tryflutter/services/database_service.dart';
@@ -27,27 +25,18 @@ class _HomepageState extends State<EventView> {
           controller: textEditingController,
         ),
         actions: [
-          // button to save
           ElevatedButton(
             onPressed: () {
-              // add a new event
               if (docID == null) {
                 databaseService.addEvent(textEditingController.text);
-              }
-
-              // update an existing event
-              else {
+              } else {
                 databaseService.updateEvent(docID, textEditingController.text);
               }
-
-              // clear the text controller
               textEditingController.clear();
-
-              // close the box
               Navigator.pop(context);
             },
-            child: Text("Add"),
-          )
+            child: const Text("Add"),
+          ),
         ],
       ),
     );
@@ -56,50 +45,174 @@ class _HomepageState extends State<EventView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Ubah background scaffold menjadi hitam
-      backgroundColor: Colors.black, // Menambahkan background hitam
-
-      body: Column(
+      backgroundColor: Colors.black,
+      body: Stack(
         children: [
-          // Ganti Header dengan Asset Image
+          // Header Image
           Container(
             width: double.infinity,
             height: 237,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/header.png'), // Ganti dengan path gambar Anda
+                image: AssetImage('assets/images/header.png'),
                 fit: BoxFit.cover,
               ),
             ),
           ),
 
+          // Search Bar Container di atas header image
+          Positioned(
+            top: 210,
+            left: 55,
+            right: 55,
+            child: Container(
+              width: 50, // Adjusted width
+              height: 50, // Adjusted height
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 6,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Icon(Icons.search, color: Colors.grey),
+                  ),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search events',
+                        border: InputBorder.none,
+                      ),
+                      style: TextStyle(
+                        color: Color(0xFF212121),
+                        fontSize: 16,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Image.asset(
+                      'assets/images/sort.png',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          // Teks "Home" di atas header image
+          Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: Text(
+                'Home',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ),
+
+          // Ikon Sidebar di kiri atas
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15, left: 35),
+              child: Container(
+                width: 22,
+                height: 19,
+                child: Image.asset(
+                  'assets/images/sidebar.png',
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+
+          // Ikon Notifikasi di kanan atas
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15, right: 35),
+              child: Container(
+                width: 18.33,
+                height: 20,
+                child: Image.asset(
+                  'assets/images/notificationblack.png',
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+
+          // Popular Events
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 280),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Popular events',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Opacity(
+                  opacity: 0.40,
+                  child: Text(
+                    'See all',
+                    style: TextStyle(
+                      color: Color(0xFFFFD166),
+                      fontSize: 14,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
           // Isi Body
-          Expanded(
+          Positioned.fill(  
+            top: 305, 
             child: StreamBuilder<QuerySnapshot>(
               stream: databaseService.getEventsStream(),
               builder: (context, snapshot) {
-                // if we have data, get all the docs
                 if (snapshot.hasData) {
                   List eventsList = snapshot.data!.docs;
 
-                  // display as a list
                   return ListView.builder(
+                    padding: EdgeInsets.only(top: 10), 
                     itemCount: eventsList.length,
                     itemBuilder: (context, index) {
-                      // get each individual doc
                       DocumentSnapshot document = eventsList[index];
                       String docID = document.id;
-
-                      // get event from each doc
                       Map<String, dynamic> data =
                           document.data() as Map<String, dynamic>;
                       String eventText = data['events'] ?? "events";
 
-                      // display as a list tile
                       return ListTile(
                         title: Text(
                           eventText,
-                          style: TextStyle(color: Colors.white), // Warna teks putih agar kontras dengan background hitam
+                          style: TextStyle(color: Colors.white),
                         ),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -107,13 +220,16 @@ class _HomepageState extends State<EventView> {
                             // update button
                             IconButton(
                               onPressed: () => openNoteBox(docID: docID),
-                              icon: const Icon(Icons.settings, color: Colors.white), // Warna ikon putih
+                              icon: const Icon(Icons.settings,
+                                  color: Colors.white),
                             ),
 
                             // delete button
                             IconButton(
-                              onPressed: () => databaseService.deleteEvent(docID),
-                              icon: const Icon(Icons.delete, color: Colors.white), // Warna ikon putih
+                              onPressed: () =>
+                                  databaseService.deleteEvent(docID),
+                              icon: const Icon(Icons.delete,
+                                  color: Colors.white),
                             ),
                           ],
                         ),
@@ -122,7 +238,8 @@ class _HomepageState extends State<EventView> {
                   );
                 } else {
                   return const Center(
-                    child: Text("No events...", style: TextStyle(color: Colors.white)), // Warna teks putih
+                    child: Text("No events...",
+                        style: TextStyle(color: Colors.white)),
                   );
                 }
               },
@@ -135,7 +252,7 @@ class _HomepageState extends State<EventView> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => openNoteBox(),
         child: const Icon(Icons.add),
-        backgroundColor: Colors.black, // Warna background FAB hitam
+        backgroundColor: const Color.fromARGB(255, 255, 186, 57),
       ),
     );
   }

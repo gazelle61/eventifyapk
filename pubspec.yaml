@@ -28,12 +28,12 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  firebase_core: ^3.10.0
-  cloud_firestore: ^5.6.1
-  intl: ^0.20.1
   flutter:
     sdk: flutter
-  # google_sign_in: ^6.2.2
+  firebase_core: ^3.10.0
+  cloud_firestore: ^5.6.1
+  firebase_storage: ^12.4.0
+  
   # firebase_core_platform_interface: ^5.4.0
 
 
@@ -67,6 +67,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
       - assets/images/header.png
+      - assets/images/notificationblack.png
+      - assets/images/sidebar.png
+      - assets/images/sort.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -80,10 +83,16 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: EricaOne
+      fonts:
+        - asset: assets/fonts/EricaOne-Regular.ttf
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat-Bold.ttf
+
+
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
