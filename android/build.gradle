@@ -1,3 +1,4 @@
+
 buildscript {
     repositories {
         google()
@@ -7,6 +8,10 @@ buildscript {
         classpath 'com.android.tools.build:gradle:8.1.2'
         classpath 'com.google.gms:google-services:4.3.15' // Firebase plugin
     }
+
+plugins {
+    id("com.google.gms.google-services") version "4.3.15" apply false
+
 }
 
 allprojects {
@@ -20,6 +25,7 @@ rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
 subprojects {
     project.evaluationDependsOn(":app")
 }
