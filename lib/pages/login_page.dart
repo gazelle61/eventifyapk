@@ -1,5 +1,4 @@
 import 'package:tryflutter/pages/signup_page.dart';
-import 'package:tryflutter/widgets/AppStyles.dart';
 import 'package:tryflutter/widgets/my_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,8 +36,10 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text(
           "Login",
-          style: AppStyles.heading1,
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
         ),
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -47,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               MyTextField(
-                hintText: "Your Email",
+                hintText: "email",
                 isObsecure: false,
                 controller: _email,
                 validator: (value) {
@@ -59,9 +60,9 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
               ),
-              SizedBox(height: AppStyles.spaceXL),
+              SizedBox(height: 13),
               MyTextField(
-                hintText: "Your Password",
+                hintText: "password",
                 isObsecure: true,
                 controller: _password,
                 validator: (value) {
@@ -73,32 +74,28 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
               ),
-              SizedBox(height: AppStyles.spaceXL),
+              SizedBox(height: 20),
               MyButton(
                 text: "Login",
-                color: AppStyles.textColor,
+                color: Colors.blue,
                 onPressed: () async {
                   final email = _email.text;
                   final password = _password.text;
 
-                  // Validasi input email dan password
                   setState(() {
                     _isEmailValid = email.endsWith("@gmail.com");
                     _isPasswordValid = password.length >= 6;
                   });
 
                   if (_isEmailValid && _isPasswordValid) {
-                    final user = await _auth.loginUserWithEmailAndPassword(
-                      email,
-                      password,
-                    );
+                    final user = await _auth.loginUserWithEmailAndPassword(email, password);
                     if (user != null) {
                       log("User Logged In");
                       Get.snackbar(
                         "Success",
                         "Login successful!",
-                        backgroundColor: AppStyles.success,
-                        colorText: AppStyles.backGroundColor,
+                        backgroundColor: Colors.green,
+                        colorText: Colors.white,
                         snackPosition: SnackPosition.TOP,
                         duration: Duration(seconds: 3),
                       );
@@ -107,8 +104,8 @@ class _LoginPageState extends State<LoginPage> {
                       Get.snackbar(
                         "Error",
                         "Login failed. Please try again.",
-                        backgroundColor: AppStyles.error,
-                        colorText: AppStyles.backGroundColor,
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white,
                         snackPosition: SnackPosition.TOP,
                         duration: Duration(seconds: 3),
                       );
@@ -118,8 +115,8 @@ class _LoginPageState extends State<LoginPage> {
                       Get.snackbar(
                         "Invalid Email",
                         "Please use a valid email ending with @gmail.com.",
-                        backgroundColor: AppStyles.error,
-                        colorText: AppStyles.backGroundColor,
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white,
                         snackPosition: SnackPosition.TOP,
                         duration: Duration(seconds: 3),
                       );
@@ -127,8 +124,8 @@ class _LoginPageState extends State<LoginPage> {
                       Get.snackbar(
                         "Invalid Password",
                         "Password must be at least 6 characters.",
-                        backgroundColor: AppStyles.error,
-                        colorText: AppStyles.backGroundColor,
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white,
                         snackPosition: SnackPosition.TOP,
                         duration: Duration(seconds: 3),
                       );
@@ -138,12 +135,12 @@ class _LoginPageState extends State<LoginPage> {
                 fontSize: 14,
                 fontWeight: FontWeight.normal,
               ),
-              SizedBox(height: AppStyles.spaceM),
+              SizedBox(height: 10),
               Text(
                 "or",
-                style: AppStyles.caption,
+                style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
-              SizedBox(height: AppStyles.spaceS),
+              SizedBox(height: 10),
               MyTextButton(
                 onPressed: () async {
                   final user = await _auth.loginWithGoogle();
@@ -157,20 +154,20 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
               ),
-              SizedBox(height: AppStyles.spaceL),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Don't have an account?",
-                    style: AppStyles.caption,
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
-                  SizedBox(width: AppStyles.spaceXS),
+                  SizedBox(width: 5),
                   InkWell(
                     onTap: () => goToSignup(context),
                     child: Text(
                       "Sign Up",
-                      style: AppStyles.inkwell,
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.blue),
                     ),
                   ),
                 ],
@@ -183,14 +180,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void goToSignup(BuildContext context) => Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => SignupPage()),
-  );
+        context,
+        MaterialPageRoute(builder: (context) => SignupPage()),
+      );
 
   void goToHome(BuildContext context) => Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => EventView()),
-  );
+        context,
+        MaterialPageRoute(builder: (context) => EventView()),
+      );
 
   void showSnackbar(BuildContext context, String message) {
     final snackBar = SnackBar(
