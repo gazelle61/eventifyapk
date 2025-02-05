@@ -75,6 +75,10 @@ flutter:
       - assets/images/sidebar.png
       - assets/images/sort.png
       - assets/images/crossline.png
+      - assets/images/gugel.png
+      - assets/images/fb.png
+      - assets/images/x.png
+      - assets/images/ip.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

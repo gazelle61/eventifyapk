@@ -1,40 +1,32 @@
-import 'package:tryflutter/widgets/AppStyles.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MyTextButton extends StatelessWidget {
   final VoidCallback onPressed;
+  final String imagePath;
 
-  const MyTextButton({super.key, required this.onPressed});
+  const MyTextButton({super.key, required this.onPressed, required this.imagePath,} );
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 41,
-      child: TextButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-          backgroundColor: AppStyles.backGroundColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppStyles.radiusS),
+    return TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(
+        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 2),  
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            imagePath,
+            width: 35,
+            height: 35,
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/image/google.png',
-              width: 20,
-              height: 20,
-            ),
-            const SizedBox(width: 8),
-            Text("Sign in with Google",
-                style: GoogleFonts.poppins(
-                  color: AppStyles.textColor,
-                )),
-          ],
-        ),
+          
+        ],
       ),
     );
   }

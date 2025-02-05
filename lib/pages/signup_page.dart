@@ -35,11 +35,14 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black, 
       appBar: AppBar(
         title: Text(
-          "Sign Up",
+          "",
           style: AppStyles.heading1,
         ),
+        backgroundColor: Colors.black,
+        elevation: 0,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -48,13 +51,13 @@ class _SignupPageState extends State<SignupPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               MyTextField(
-                hintText: "Your Name",
+                hintText: "name",
                 isObsecure: false,
                 controller: _name,
               ),
               SizedBox(height: AppStyles.spaceS),
               MyTextField(
-                hintText: "Your Email",
+                hintText: "email",
                 isObsecure: false,
                 controller: _email,
                 validator: (value) {
@@ -68,7 +71,7 @@ class _SignupPageState extends State<SignupPage> {
               ),
               SizedBox(height: AppStyles.spaceS),
               MyTextField(
-                hintText: "Your Password",
+                hintText: "password",
                 isObsecure: true,
                 controller: _password,
                 validator: (value) {
@@ -82,7 +85,7 @@ class _SignupPageState extends State<SignupPage> {
               ),
               SizedBox(height: AppStyles.spaceXL),
               MyButton(
-                text: "Signup",
+                text: "create account",
                 color: AppStyles.textColor,
                 onPressed: _signup,
                 fontSize: 14,
@@ -93,14 +96,14 @@ class _SignupPageState extends State<SignupPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Already Have an Account?",
+                    "already have an account?",
                     style: AppStyles.caption,
                   ),
                   SizedBox(width: AppStyles.spaceXS),
                   InkWell(
                     onTap: () => goToLogin(context),
                     child: Text(
-                      "Login",
+                      "login",
                       style: AppStyles.inkwell,
                     ),
                   ),

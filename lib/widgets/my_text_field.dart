@@ -26,13 +26,13 @@ class _MyTextFieldState extends State<MyTextField> {
   Widget build(BuildContext context) {
     return IntrinsicHeight( // Biar tinggi otomatis menyesuaikan isi
       child: Container(
-        width: 300, 
+        width: 350, 
         margin: const EdgeInsets.symmetric(vertical: 4.0),
         decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(6.0),
+          color: const Color.fromARGB(198, 0, 0, 0),
+          borderRadius: BorderRadius.circular(5.0),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0), // Padding lebih kecil
+        padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 4.0), // Padding lebih kecil
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min, // Biar nggak makan banyak ruang
@@ -55,24 +55,24 @@ class _MyTextFieldState extends State<MyTextField> {
                 ),
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 6.0, // Lebih kecil
+                  horizontal: 13.0,
+                  vertical: 10.0, // Lebih kecil
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: errorText == null
-                        ? const Color.fromARGB(255, 87, 159, 89)
-                        : const Color.fromARGB(255, 192, 82, 75),
+                        ? const Color.fromARGB(255, 255, 255, 255)
+                        : const Color.fromARGB(255, 255, 255, 255),
                     width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(6.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: errorText == null ? const Color.fromARGB(0, 0, 0, 0) : Colors.red,
+                    color: errorText == null ? const Color.fromARGB(255, 255, 255, 255) : Colors.red,
                     width: 1.5,
                   ),
-                  borderRadius: BorderRadius.circular(6.0),
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
               style: const TextStyle(

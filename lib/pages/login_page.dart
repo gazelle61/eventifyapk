@@ -1,9 +1,9 @@
-import 'package:tryflutter/pages/signup_page.dart';
-import 'package:tryflutter/widgets/my_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tryflutter/pages/signup_page.dart';
 import 'dart:developer';
 import '../services/auth_service.dart';
+import '../widgets/my_text_button.dart';
 import '../widgets/my_button.dart';
 import '../widgets/my_text_field.dart';
 import 'event_view.dart';
@@ -33,12 +33,13 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black, 
       appBar: AppBar(
         title: Text(
-          "Login",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+          "",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         elevation: 0,
       ),
       body: Center(
@@ -76,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 20),
               MyButton(
-                text: "Login",
+                text: "login",
                 color: Colors.blue,
                 onPressed: () async {
                   final email = _email.text;
@@ -94,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                       Get.snackbar(
                         "Success",
                         "Login successful!",
-                        backgroundColor: Colors.green,
+                        backgroundColor: const Color.fromARGB(255, 127, 222, 130),
                         colorText: Colors.white,
                         snackPosition: SnackPosition.TOP,
                         duration: Duration(seconds: 3),
@@ -104,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                       Get.snackbar(
                         "Error",
                         "Login failed. Please try again.",
-                        backgroundColor: Colors.red,
+                        backgroundColor: const Color.fromARGB(255, 246, 142, 135),
                         colorText: Colors.white,
                         snackPosition: SnackPosition.TOP,
                         duration: Duration(seconds: 3),
@@ -115,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                       Get.snackbar(
                         "Invalid Email",
                         "Please use a valid email ending with @gmail.com.",
-                        backgroundColor: Colors.red,
+                        backgroundColor: const Color.fromARGB(255, 246, 142, 135),
                         colorText: Colors.white,
                         snackPosition: SnackPosition.TOP,
                         duration: Duration(seconds: 3),
@@ -124,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                       Get.snackbar(
                         "Invalid Password",
                         "Password must be at least 6 characters.",
-                        backgroundColor: Colors.red,
+                        backgroundColor: const Color.fromARGB(255, 246, 142, 135),
                         colorText: Colors.white,
                         snackPosition: SnackPosition.TOP,
                         duration: Duration(seconds: 3),
@@ -137,36 +138,60 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 10),
               Text(
-                "or",
-                style: TextStyle(fontSize: 14, color: Colors.grey),
+                "or login with",
+                style: TextStyle(fontSize: 14, color: Colors.white),
               ),
               SizedBox(height: 10),
-              MyTextButton(
-                onPressed: () async {
-                  final user = await _auth.loginWithGoogle();
-
-                  if (user?.user != null) {
-                    log("User Logged In with Google");
-                    showSnackbar(context, "Login with Google successful!");
-                    goToHome(context);
-                  } else {
-                    showSnackbar(context, "Google login failed.");
-                  }
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center, // Atur posisi ke kiri tanpa jarak antar ikon
+                children: [
+                  MyTextButton(
+                    onPressed: () async {
+                      final user = await _auth.loginWithGoogle();
+                      if (user?.user != null) {
+                        log("User Logged In with Google");
+                        showSnackbar(context, "Login with Google successful!");
+                        goToHome(context);
+                      } else {
+                        showSnackbar(context, "Google login failed.");
+                      }
+                    },
+                    imagePath: 'assets/images/gugel.png',
+                  ),
+                  MyTextButton(
+                    onPressed: () async {
+                      // Implement Facebook login function
+                    },
+                    imagePath: 'assets/images/fb.png',
+                  ),
+                  MyTextButton(
+                    onPressed: () async {
+                      // Implement Twitter login function
+                    },
+                    imagePath: 'assets/images/x.png',
+                  ),
+                  MyTextButton(
+                    onPressed: () async {
+                      // Implement other login function
+                    },
+                    imagePath: 'assets/images/ip.png',
+                  ),
+                ],
               ),
+
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Don't have an account?",
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                    "don't have an account?",
+                    style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
                   SizedBox(width: 5),
                   InkWell(
                     onTap: () => goToSignup(context),
                     child: Text(
-                      "Sign Up",
+                      "sign up",
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.blue),
                     ),
                   ),

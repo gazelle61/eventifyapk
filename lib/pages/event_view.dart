@@ -207,7 +207,7 @@ class _HomepageState extends State<EventView> {
                       String docID = document.id;
                       Map<String, dynamic> data =
                           document.data() as Map<String, dynamic>;
-                      String eventText = data['events'] ?? "events";
+                      String eventText = data['event'] ?? "evebbnts";
 
                       return ListTile(
                         title: Text(
